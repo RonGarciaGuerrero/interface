@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P3</title>
+        <!-- Autor: Ronald Garcia Guerrero -->
+</head>
+<body>
+    <h1>Cree una página que imprima en forma de tabla una lista del ancho y alto de las televisiones, en función del tamaño de su diagonal, desde un mínimo de pulgadas indicado por el usuario (debe ser superior a cero) hasta el máximo indicado también por el usuario (debe ser igual o superior al mínimo).</h1>
+    
+    <!-- 1-Pedir valor mínimo y máximo de pulgadas -->
+    <label for="">Introduzca el valor mínimo de pulgadas:</label><br/>
+    <input type="number" min="1" id="minPulg"><br/>
+    <label for="">Introduzca el valor máximo de pulgadas:</label><br/>
+    <input type="number" min="1" id="maxPulg" title="Debe ser mayor que el valor mínimo"><br/><br/>
+    <button onclick="tablaPulgadas()">Ver Tabla</button> 
+    <br/>
+    <div id="tab"></div>
+
+    <script>
+        
+        //2-Comprobar que los valores que han metido son válidos
+        
+        function validarValores(a,b){
+            var valores;
+            if(a>b){
+                valores=true;
+            }else{
+                valores=false;
+            }
+            return valores;
+        }
+
+        //3-calcular lados de la tele en funcion de las pulgadas
+        //Este cálculo está basado en televisores con una relacion de 16:9 que son la gran mayoria
+        //Alto = 1,245 x pulgadas = 1,245 x 40 = 49,8 cm
+        //Ancho = 2,21375 x pulgadas = 88,55 cm
+        function base(a){
+            var base;
+            base = 2.21375 * a;
+            base = base.toFixed(2);//redondeo a 2 decimales
+            return base;
+        }
+        function altura(a){
+            var altura;
+            altura = 1.245 * a;
+            altura = altura.toFixed(2);//redondeo a 2 decimales
+            return altura;
+        }
+        
+        //4-Construir la tabla
+        function tablaPulgadas(){
+            var minPulg = parseInt(document.getElementById("minPulg").value);
+            var maxPulg = parseInt(document.getElementById("maxPulg").value);
+            var ancho,alto, inicio, fin;
+            var table = "<table>";
+            var imprimir;
+            table += "<tr><th>Pulgadas</th><th>Ancho</th><th>Alto</th></tr>";//voy concatenando
+            console.log(minPulg);
+            console.log(maxPulg);
+            
+            if (!validarValores(maxPulg,minPulg)){
+                document.getElementById("tab").innerHTML="<p>Error, el valor máximo debe ser mayor que el valor mínimo</p>";
+            }else{
+                
+                for(i=minPulg;i<=maxPulg;i++){
+                    ancho=base(i);
+                    alto=altura(i);
+                    table += "<tr><td>"+i+"</td>"+"<td>"+ancho+"</td>"+"<td>"+alto+"</td></tr>";
+                
+                }
+                table += "</table>"
+                document.getElementById("tab").innerHTML=table;
+            }
+            
+        }
+    </script>
+</body>
+</html>

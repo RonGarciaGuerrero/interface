@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ej3</title>
+    <!-- Autor: Ronald Garcia Guerrero -->
+</head>
+<body>
+    <h1>Ej3. Implemente un script que imprima la siguiente estructura en una página web . Para ello, use una única estructura while. NOTA: Será válido usar también bucles for.
+    </h1>
+    
+    <label>Introduzca el número de niveles:</label><br><br>
+    <input required type="number" id="p1" name="p1" min="1"><br><br>
+    <button onclick="myFunction()">Imprimir</button>
+    <p id="resultado"></p>
+    
+    <script>
+        function myFunction(){
+            var nivel = parseInt(document.getElementById("p1").value);//getElementById devuelve un objeto DOM, se le pide el value devuelve una cadena 
+            //console.log(nivel);
+            var i,j,lineas;
+            var num="";
+            j=1;
+            lineas=nivel*2;//cantidad de lineas
+            while(lineas>0){
+                var num1="";
+                for(i=0;i<=nivel-1;i++){//este for construye cada linea que se imprime concatenando el numero convertido en cadena las veces que haga falta 
+                    num1=num1+j.toString()+" ";                    
+                }
+                if (nivel <= 0) {
+                    for(i=0;i<-nivel+1;i++){//para que imprima el triangulo inferior, se le cambia el signo al nivel para que funcione la condición de parada
+                        num1=num1+j.toString()+" ";                    
+                    }
+                }
+                console.log("j="+j);
+                console.log("num1="+num1);
+                console.log("nivel="+nivel);
+                console.log("lineas="+lineas);
+                console.log("veces="+(-nivel+1));
+                nivel--;
+                if (nivel > 0){
+                    j++;
+                }
+                if (nivel < 0){
+                    j--;
+                }
+                //if (nivel==0){num=num+num1+"<br/>";}
+                
+                lineas--;                
+                num=num+num1+"<br/>";
+                console.log("num="+num);
+                
+            }
+            document.getElementById("resultado").innerHTML=num;
+        }
+    </script>
+</body>
+</html>

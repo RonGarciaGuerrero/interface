@@ -1,0 +1,16 @@
+body{
+    background-color: black;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: white;
+    
+}
+#lista{
+    list-style-type: none;
+    
+}
+
+#item {
+    color: black;
+    vertical-align: top;
+    
+}

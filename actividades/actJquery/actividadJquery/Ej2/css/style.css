@@ -1,0 +1,12 @@
+table tr td {
+    border-color: black;
+}
+table{
+    border-collapse: collapse;
+}
+body{
+    background-color: rgb(224, 224, 224);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background: rgb(78,107,255);
+    background: radial-gradient(circle, rgba(78,107,255,1) 0%, rgba(255,211,220,1) 100%);
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P2</title>
+    <!-- Autor: Ronald Garcia Guerrero -->
+    <!-- 
+        
+        <button onclick="setTimeout(alerta, milisegundos)">
+        setTimeout es lo que inicia el contador
+        Cuando termine el contador se llama a la función alerta
+        Que debe hacer los cambios en la página -->
+</head>
+<body>
+    <h1>P2. Cree una página web que servirá como cronómetro. Al entrar preguntará el número de segundos que se ha de contar.</h1>
+    <!-- 1-Pedir al usuario los segundos -->
+    <h1>Cronómetro</h1>
+
+    <label>Inserte el número de segundos que ha de contar:</label><br/>
+    <input type="number" min="1" id="seg" title="Debe ser mínimo 1 seg"><br/><br/>
+    <!-- <button onclick="cronometro()">Aceptar</button> 
+    <br/><br/> -->
+    <label>Para iniciar el cronometro presione "Iniciar"</label>
+    <button onclick="myFunction()">Iniciar</button>
+    <h1 id="wait"></h1>
+    <div id="tiempoAgotado"></div>
+    
+    <script>
+        // 2- convierto los segundos a milisegundos
+        function cronometro(){
+            var miliseg = parseInt(document.getElementById("seg").value)*1000;
+            console.log(miliseg);
+            return miliseg;
+        }  
+        function alerta(){ //aquí se pone el aviso de que se acabó el tiempo 
+            document.getElementById("tiempoAgotado").innerHTML="<h1>TIEMPO AGOTADO</h1>";
+            
+
+        }
+        function myFunction(){
+        // 3-Mostrar Esperando setTimeout(alerta(), cronometro()
+            document.getElementById("wait").innerHTML="<h1>Esperando...</h1>";
+            setTimeout(function(){ alerta();}, cronometro());
+            
+        }
+    </script>
+</body>
+</html>

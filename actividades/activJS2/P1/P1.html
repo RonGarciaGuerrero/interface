@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P1</title>
+    <!-- Autor: Ronald Garcia Guerrero -->
+</head>
+<body>
+    <h1>P1. Crea una página que, dadas las ofertas de una subasta, imprima una tabla con éstas indicando el nombre del pujador y la puja realizada ordenadas de forma decreciente.
+    </h1>
+    
+    <label>Introduzca la cadena de subasta:</label><br><br>
+    <input required size="40" type="text" id="sub" name="sub"><br><br>
+    <button onclick="mySubasta()">Ver Tabla</button>
+    <h3>Orden de introducción</h3>
+    <div id="resultado"></div>
+    <h3>Ordenado por nombre</h3>
+    <div id="resultado2"></div>
+    <h3>Ordenado por cantidad</h3>
+    <div id="resultado3"></div>
+
+    <script>
+        //Grupo de funciones realizadas para resolver el problema:
+        function ordenarPorNombre(a,b){
+            if(a[0]<b[0]){
+                return -1;
+            }
+
+            if(a[0]>b[0]){
+                return 1;
+            }
+
+            return 0;
+        }
+
+        function ordenarPorPrecio(a,b){//para ordenar por el segundo elemento uso el [1] y como es descendente resto b-a, su fuera ascendente entonces seria a-b  
+            return b[1]-a[1];
+        }
+
+        function imprimirMatrix(c,d){//recibe dos parametros, la matriz y el elemento
+            var table = "<table>";
+            var imprimir;
+            table += "<tr><th>Pujador</th><th>Cantidad</th></tr>";//voy concatenando
+            for(var i=0;i<=c.length-1;i++){
+                //lo comentado en esta función es porque no funcionó
+                //document.getElementById("resultado").innerHTML=document.getElementById("resultado").innerHTML+"<tr>";
+                table += "<tr>";
+                    for(var j=0;j<=c[i].length-1;j++){
+                    console.log(c[i][j]);
+                    imprimir=c[i][j];
+                    //document.getElementById("resultado").innerHTML=document.getElementById("resultado").innerHTML+"<td>"+imprimir+"</td>";
+                    table  += "<td>"+imprimir+"</td>";
+                }
+                //document.getElementById("resultado").innerHTML=document.getElementById("resultado").innerHTML+"</tr>";
+                table += "</tr>";
+            }
+            //document.getElementById("resultado").innerHTML=document.getElementById("resultado").innerHTML+"</table>";
+            table += "</table>";
+            document.getElementById(d).innerHTML=table;
+
+        }
+        function mySubasta(){
+            var cadena = document.getElementById("sub").value;
+            var pareja1,pareja2;
+            console.log(cadena);
+            pareja1= cadena.split(';');
+            var matrix = []
+
+            // 1) CONSTRUIR MATRIZ
+            for(var i=0;i<=pareja1.length-2;i++){
+                matrix[i]=pareja1[i].split(',');
+               
+            }
+          
+
+            // 2) IMPRIMIR MATRIZ SIN ORDENAR
+            imprimirMatrix(matrix,"resultado");
+
+
+            // 3) ORDENAR POR NOMBRE
+            matrix.sort(ordenarPorNombre);
+            console.log(matrix);
+            
+            // 4) IMPRIMIR MATRIZ ORDENADA POR NOMBRE
+            imprimirMatrix(matrix,"resultado2");
+            
+            // 5) ORDENAR POR PRECIO
+            matrix.sort(ordenarPorPrecio);
+            console.log(matrix);
+            
+            // 6) IMPRIMIR MATRIZ ORDENADA POR PRECIO
+            imprimirMatrix(matrix,"resultado3");
+
+        }     
+    </script>
+</body>
+</html>

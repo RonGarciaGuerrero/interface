@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ej5</title>
+    <!-- Autor: Ronald Garcia Guerrero -->
+</head>
+<body>
+    <h1>EJ5. Cree una página web que permita obtener el resultado de una serie de operaciones matemáticas. La web pedirá al usuario una cadena de caracteres conteniendo las operaciones matemáticas y sus operandos.</h1>
+    <h3>
+        Por ejemplo, la cadena de entrada puede ser “1+2-3*4/5”. La página imprimirá el resultado parcial y total de las operaciones, ejecutando éstas de izquierda a derecha sin importar la precedencia de los operadores, de tal forma que sea más sencilla la evaluación de los mismos. 
+        Para la cadena de entrada anterior, el resultado total sería 0 (y no 0.6, que sería el resultado si se tiene en cuenta la precedencia de los operadores) y los resultados parciales serían 1 + 2 = 3, 3 – 3 = 0, 0 * 4 = 0 y 0 / 5 = 0. 
+        Observe que cada operación usa como primer operando el resultado de la operación anterior. Por cada operación matemática soportada emplee una función distinta para ejecutar la operación, aceptando éstas como argumento los dos operandos y devolviendo el resultado de la operación.    
+    </h3> 
+
+    <label>Introduzca la operación matemática:</label><br><br>
+    <input required type="text" id="p1" name="p1" min="3"><br><br>
+    <button onclick="operadores()">Calcular</button>
+    <p id="resultado"></p>
+    
+    <script>
+        function operadores(){
+            var cadena = "+"+document.getElementById("p1").value; 
+            console.log(cadena);
+            var suma, resta, mult, div;
+            var operadores="+-*/";
+            var numeros="0123456789";
+            var num;
+            var total=0;
+            var copiaTotal;
+            var oper;
+            num="0";
+            function suma(a,b){
+                var resp=a+b;
+                return resp;
+            }
+            function resta(a,b){
+                var resp=a-b;
+                return resp;    
+            }
+            function multiplicacion(a,b){
+                var resp=a*b;
+                return resp;    
+            }
+            function division(a,b){
+                var resp=a/b;
+                return resp;    
+            }
+            function posSigOperador(expresion){
+                var pos, opSum, opRes, opMul, opDiv;
+                opSum=expresion.indexOf("+");
+                opRes=expresion.indexOf("-");
+                opMul=expresion.indexOf("*");
+                opDiv=expresion.indexOf("/");
+                if (opSum == -1){ opSum = expresion.length;}
+                if (opRes == -1){ opRes = expresion.length;}
+                if (opMul == -1){ opMul = expresion.length;}
+                if (opDiv == -1){ opDiv = expresion.length;}
+                pos=Math.min(opSum, opRes, opMul, opDiv);
+                return pos;
+            }
+            
+            console.log(posSigOperador(cadena));
+            
+            for(var i=0;i<=cadena.length+1;i++){
+                copiaTotal = total; // guardamos una copia del primer operando
+                oper=cadena.substring(0,1);
+                
+                console.log(oper);
+                cadena=cadena.substring(1);
+                num=parseInt(cadena.substring(0,posSigOperador(cadena)));
+                console.log(num);
+                console.log(posSigOperador(cadena));
+                
+                if(oper=="+"){
+                    total=suma(total,num);
+                }
+                if(oper=="-"){
+                    total=resta(total,num);
+                }
+                if(oper=="*"){
+                    total=multiplicacion(total,num);
+                }
+                if(oper=="/"){
+                    total=division(total,num);
+                }
+                //total=total+oper+num;
+                console.log(copiaTotal+oper+num+"="+total);
+                cadena=cadena.substring(posSigOperador(cadena));
+                console.log(cadena);
+                document.getElementById("resultado").innerHTML=total;
+            }
+        }
+        //document.getElementById("resultado").innerHTML=num;
+        
+    </script>
+</body>
+</html>

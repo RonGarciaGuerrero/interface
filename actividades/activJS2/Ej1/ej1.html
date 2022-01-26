@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ej1</title>
+    <!-- Autor: Ronald Garcia Guerrero -->
+</head>
+<body>
+    <h1>Ej1. Escriba una función que dada la potencia de una fuente de señal y la potencia del ruido de fondo, calcule la relación entre ambas señales en decibelios. Integre esta función en una página web de tal forma que ésta pida las dos potencias e indique finalmente la relación entre las mismas, reduciendo la salida a dos decimales</h1>
+    
+    <label>Introduzca el valor para la potencia de señal:</label><br><br>
+    <input required type="number" id="p1" name="p1" min="0"><br><br>
+    <label>Introduzca el valor para la potencia de ruido de fondo:</label><br><br>
+    <input required type="number" id="p2" name="p2" min="0"><br><br>
+    <button onclick="myFunction()">Calcular</button>
+    <p id="resultado"></p>
+    
+    <script>
+        function myFunction() {
+            var pot1 = parseInt(document.getElementById("p1").value);//getElementById devuelve un objeto DOM, se le pide el value devuelve una cadena y hago casting a int 
+            var pot2 = parseInt(document.getElementById("p2").value);
+            console.log(pot1);
+            console.log(pot2);
+            var db = 10*Math.log10(pot1/pot2);
+            console.log(db);
+            document.getElementById("resultado").innerHTML="La relación entre las potencias es: "+db.toFixed(2)+"db";//para llevar el resultado a dos decimales se usa la función toFixed() 
+            
+        }
+
+    </script>
+
+
+</body>
+</html>

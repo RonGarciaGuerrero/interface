@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ej5</title>
+    <!-- Autor: Ronald Garcia Guerrero -->
+</head>
+<body>
+    <h1>EJ5. Cree una página web que permita obtener el resultado de una serie de operaciones matemáticas. La web pedirá al usuario una cadena de caracteres conteniendo las operaciones matemáticas y sus operandos.</h1>
+    <h3>
+        Por ejemplo, la cadena de entrada puede ser “1+2-3*4/5”. La página imprimirá el resultado parcial y total de las operaciones, ejecutando éstas de izquierda a derecha sin importar la precedencia de los operadores, de tal forma que sea más sencilla la evaluación de los mismos. 
+        Para la cadena de entrada anterior, el resultado total sería 0 (y no 0.6, que sería el resultado si se tiene en cuenta la precedencia de los operadores) y los resultados parciales serían 1 + 2 = 3, 3 – 3 = 0, 0 * 4 = 0 y 0 / 5 = 0. 
+        Observe que cada operación usa como primer operando el resultado de la operación anterior. Por cada operación matemática soportada emplee una función distinta para ejecutar la operación, aceptando éstas como argumento los dos operandos y devolviendo el resultado de la operación.    
+    </h3> 
+
+    <label>Introduzca la operación matemática:</label><br><br>
+    <input required type="text" id="p1" name="p1" min="3"><br><br>
+    <button onclick="operadores()">Calcular</button>
+    <p id="resultado"></p>
+    
+    <script>
+            function suma(a,b){
+                var resp=a+b;
+                return resp;
+            }
+            function resta(a,b){
+                var resp=a-b;
+                return resp;    
+            }
+            function multiplicacion(a,b){
+                var resp=a*b;
+                return resp;    
+            }
+            function division(a,b){
+                var resp=a/b;
+                return resp;    
+            }
+            function posSigOperador(expresion){
+                var pos, opSum, opRes, opMul, opDiv;
+                opSum=expresion.indexOf("+",1); // esto lo hacemos porque queremos ignorar el operador actual (en posicion cero).
+                opRes=expresion.indexOf("-",1);
+                opMul=expresion.indexOf("*",1);
+                opDiv=expresion.indexOf("/",1);
+                // Si nos devuelve -1, el Math.min devolverá siempre -1. En ese caso, devolvemos la longitud de la cadena para evitar que el Math.min no funcione como queremos.
+                if (opSum == -1){ opSum = expresion.length;}
+                if (opRes == -1){ opRes = expresion.length;}
+                if (opMul == -1){ opMul = expresion.length;}
+                if (opDiv == -1){ opDiv = expresion.length;}
+                
+                pos=Math.min(opSum, opRes, opMul, opDiv);
+                return pos;
+            }
+        function operadores(){
+            var cadena = "+"+document.getElementById("p1").value; 
+            console.log(cadena);
+            var total=0;
+            var imprimir="";
+            // vamos procesando la cadena mientras no sea vacía (queda aún algo por procesar)
+            while (cadena.length > 0){
+              console.log(cadena);
+              var oper = cadena.substring(0,1);
+              var posProxOper = posSigOperador(cadena);
+              var num = parseInt(cadena.substring(1,posProxOper));
+              var copiaTotal = total; // guardamos una copia del primer operando
+              
+              if(oper=="+"){
+                total=suma(total,num);
+              }
+              if(oper=="-"){
+                total=resta(total,num);
+              }
+              if(oper=="*"){
+                total=multiplicacion(total,num);
+              }
+              if(oper=="/"){
+                total=division(total,num);
+              }
+              console.log(copiaTotal + oper + num + "=" + total); // imprimimos el primer operando, operador, segundo operando y resultado
+              imprimir=copiaTotal + oper + num + "=" + total+'<br>';
+              
+              cadena = cadena.substring(posProxOper); //quitamos de la cadena todo lo ya procesado
+              document.getElementById("resultado").innerHTML=document.getElementById("resultado").innerHTML+imprimir;
+            }
+        }
+        
+        
+    </script>
+</body>
+</html>
